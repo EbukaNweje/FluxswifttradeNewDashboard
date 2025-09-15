@@ -20,7 +20,7 @@ const DashboardHome = () => {
   // const userName = userDatas?.userName
   // console.log("this is UserName", userName)
   const [state, setState] = useState({
-    value: `https://ap.Fluxswifttrade.com/ref/`,
+    value: `https://fluxswifttrade-gray.vercel.app/ref/`,
     copied: false,
   });
 

@@ -14,7 +14,7 @@ const Dashboard = () => {
         </div>
         <div className="w-full h-16 bg-[#0f3951]">
           <p className="flex gap-5 items-center text-white">
-            &copy; Copy Rights {currentYear}. All Rights Reserved Fluxswifttrade
+            &copy; Copy Rights 2021. All Rights Reserved Fluxswifttrade
           </p>
         </div>
       </div>
