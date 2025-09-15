@@ -10,7 +10,6 @@ import { z } from "zod";
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 
-
 const Investmentpay = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState(0.0);
@@ -19,17 +18,15 @@ const Investmentpay = () => {
   const [userPlan, setUserPlan] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [planPrice, setPlanPrice] = useState(0);
-  const [laoding, setLoading] = useState(false)
+  const [laoding, setLoading] = useState(false);
 
-  const userId = useSelector((state) => state.id)
-  console.log(userId)
+  const userId = useSelector((state) => state.id);
+  console.log(userId);
 
   const User = z.object({
-    check: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: "You must accept the terms and conditions",
-      }),
+    check: z.boolean().refine((val) => val === true, {
+      message: "You must accept the terms and conditions",
+    }),
   });
 
   const {
@@ -56,8 +53,7 @@ const Investmentpay = () => {
   const roundedNumber = parseFloat(bitcoinValue.toFixed(8));
 
   const getAllPlan = () => {
-    const url =
-      "https://coinstarpro-bitminers-new-backnd-three.vercel.app/api/getallplan";
+    const url = "https://fluxswifttrade-back-end-two.vercel.app/api/getallplan";
     axios
       .get(url)
       .then((response) => {
@@ -90,27 +86,27 @@ const Investmentpay = () => {
       toast.error("Plan and amount are required");
     }
   });
-  
+
   const data = {
     amount: amount,
     planId: selectedPackage?._id,
-    
-  }
+  };
 
-  const handleProceed = async() => {
-    const url = `https://coinstarpro-bitminers-new-backnd-three.vercel.app/api/invest/${userId}`
-      setLoading(true)
-      axios.post(url, data)
-      .then(res => {
-          setLoading(false)
-          toast.success(res.data.message)
-          Nav('')
-      }).catch((err)=>{
-          setLoading(false)
-          toast.error(err.response.data.message)
-        console.log("eee",err)
+  const handleProceed = async () => {
+    const url = `https://fluxswifttrade-back-end-two.vercel.app/api/invest/${userId}`;
+    setLoading(true);
+    axios
+      .post(url, data)
+      .then((res) => {
+        setLoading(false);
+        toast.success(res.data.message);
+        Nav("");
       })
-    
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.response.data.message);
+        console.log("eee", err);
+      });
   };
 
   return (
@@ -156,14 +152,8 @@ const Investmentpay = () => {
             </div>
           </div>
           <div className="w-full h-max flex items-center">
-            <input
-              type="checkbox"
-              className="w-6 h-6"
-              {...register("check")}
-            />
-            <p className="ml-2 text-sm">
-              I agree to the terms and conditions
-            </p>
+            <input type="checkbox" className="w-6 h-6" {...register("check")} />
+            <p className="ml-2 text-sm">I agree to the terms and conditions</p>
             {errors?.check && (
               <span style={{ color: "red" }}>{errors.check.message}</span>
             )}
@@ -215,16 +205,18 @@ const Investmentpay = () => {
           <p>Confirm Your Payment</p>
           <p className="text-center">
             This is to confirm your payment of ${amount} ({roundedNumber} BTC)
-             {selectedPackage?.planName || "None"} Payment. Please cancel
-            if you did not initiate the transaction.
+            {selectedPackage?.planName || "None"} Payment. Please cancel if you
+            did not initiate the transaction.
           </p>
           <button
             className="px-5 py-2 rounded text-white font-semibold bg-[#a286f4]"
             onClick={handleProceed}
           >
-             { laoding ? <ClipLoader color='white' className="hover:bg-#a286f4" /> :
-                               " Proceed" 
-                               } 
+            {laoding ? (
+              <ClipLoader color="white" className="hover:bg-#a286f4" />
+            ) : (
+              " Proceed"
+            )}
           </button>
           <button
             className="px-5 py-2 rounded border border-[#a286f4] text-[#a286f4]"
